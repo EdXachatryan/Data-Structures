@@ -5,11 +5,19 @@
 template<typename T>
 class Linked_List
 {
-    using value_type    = T;
-    using size_type     = size_t;
-    using reference     = value_type&;
+    using value_type = T;
+    using size_type = size_t;
+    using reference = value_type&;
     using const_reference = const reference;
 
+    struct Node
+    {
+        Node(value_type arg) : data(arg), nextPtr(nullptr) {}
+        value_type data;
+        Node* nextPtr;
+    };
+
+    using NodePtr = Node*;
     //using iterator = LegacyBidirectionalIterator;
     //using const_iterator = const LegacyBidirectionalIterator;
     //using reverse_iterator = std::reverse_iterator<iterator>;
@@ -17,13 +25,12 @@ class Linked_List
 
 public:
     Linked_List();
-    Linked_List(size_type n);
+    explicit Linked_List(size_type n);
     Linked_List(const Linked_List& other);
     Linked_List(Linked_List&& other);
     ~Linked_List();
 
     Linked_List& operator=(const Linked_List&);
-    Linked_List& operator=(Linked_List&& other);
     Linked_List& operator=(Linked_List&& other) noexcept;
 
     reference front();
@@ -37,7 +44,6 @@ public:
     bool empty() const;
     size_type size() const;
 
-    void clear();
     void clear() noexcept;
 
     void insert(size_t pos, const_reference value);
@@ -47,8 +53,8 @@ public:
     //template< class... Args >
     //iterator emplace(const_iterator pos, Args&&... args);
 
-    iterator erase(iterator pos);
-    iterator erase(const_iterator first, const_iterator last);
+    //iterator erase(iterator pos);
+    //iterator erase(const_iterator first, const_iterator last);
 
     void push_back(value_type&&);
     void push_back(const value_type&);
@@ -58,8 +64,12 @@ public:
 
     void resize(size_type n);
     void swap(Linked_List&);
-    void swap(Linked_List&) noexcept;
 
 private:
 
+    NodePtr m_HeadPtr;
+    size_type m_Size;
 };
+
+
+#include "Linked_List_impl.h"
