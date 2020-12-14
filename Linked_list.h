@@ -68,6 +68,7 @@ public:
 private:
 
     NodePtr m_HeadPtr;
+    NodePtr m_TailPtr;
     size_type m_Size;
 };
 
